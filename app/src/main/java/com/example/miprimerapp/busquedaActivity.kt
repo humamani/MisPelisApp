@@ -22,14 +22,17 @@ class busquedaActivity : AppCompatActivity() {
          getCurrentData(categoria)
     }
 
-    internal fun getCurrentData(categ:String) {
+    private fun getCurrentData(categ:String) {
         val retrofit = Retrofit.Builder()
             .baseUrl(BaseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+        val popular=getString(R.string.popular)
+        val top_rated=getString(R.string.top_rated)
+        val upcoming=getString(R.string.upcoming)
 
         when(categ){
-            in "Popular"-> {
+            in popular -> {
                 val service = retrofit.create(MoviesService::class.java)
                 val call = service.getCurrentMoviesData(AppId)
                 val recyclerView: RecyclerView = findViewById(R.id.recycler)
@@ -55,7 +58,7 @@ class busquedaActivity : AppCompatActivity() {
                     }
                 })
             }
-            in "Top Rated"->{
+            in top_rated->{
                 val service = retrofit.create(MoviesTopratedService::class.java)
                 val call = service.getCurrentMoviesData(AppId)
                 val recyclerView: RecyclerView = findViewById(R.id.recycler)
@@ -81,7 +84,7 @@ class busquedaActivity : AppCompatActivity() {
                     }
                 })
             }
-            in "Upcoming"->{
+            in upcoming->{
                 val service = retrofit.create(MoviesUpcomingService::class.java)
                 val call = service.getCurrentMoviesData(AppId)
                 val recyclerView: RecyclerView = findViewById(R.id.recycler)
